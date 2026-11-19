@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AYUSH Medical Officers — Seniority & Superannuation Timeline</title>
+  <link rel="stylesheet" href="styles.css?v=20261119c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="gov-header">
+    <div class="header-inner">
+      <div class="brand-section">
+        <div class="gov-badge">
+          AYUSH Cadre Portal
+        </div>
+        <div class="title-group">
+          <h1>
+            Ayurvedic & Unani Medical Officers — Seniority & Superannuation Portal
+          </h1>
+          <p class="sub">AYUSH & AYUSH Education Section | Office Memorandum No. 2445/XL-1/2020-08/2012</p>
+          <p class="memo">Provisional Seniority List S.No. 246 to 753 (Total 508 Medical Officers) | Unofficial Information & Analysis</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="rulesBtn" class="btn btn-header" title="View Official Rules & Formulas">
+          Rules & References
+        </button>
+        <button id="exportCsvBtn" class="btn btn-header" title="Download Complete Dataset as CSV">
+          Export Data (CSV)
+        </button>
+        <button id="adminBtn" class="btn btn-header" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #fef08a;" title="Owner Data Management (Excel/CSV Upload)">
+          Admin Portal
+        </button>
+        <button id="printBtn" class="btn btn-header" title="Print Report / Save as PDF">
+          Print / PDF
+        </button>
+        <button id="themeToggleBtn" class="btn btn-header" title="Switch Theme">
+          <span id="themeIcon">Theme</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-container">
+
+    <!-- Simple, Informative Retirement Age Parameter Bar -->
+    <section class="control-hub-card">
+      <div class="control-hub-header">
+        <div class="control-hub-title">
+          <span>Superannuation Age Setting</span>
+          <span id="activeRulePill" class="active-rule-pill">Loading...</span>
+        </div>
+      </div>
+
+      <div class="controls-row">
+        <div class="control-item">
+          <label class="control-label" for="retAgeInput">
+            Superannuation Age (Years):
+          </label>
+          <div class="input-with-presets">
+            <input type="number" id="retAgeInput" class="form-input" min="50" max="70" value="60" style="max-width: 80px;">
+            <div class="preset-pills">
+              <button class="pill-btn" data-ret-age="58">58 Years</button>
+              <button class="pill-btn active" data-ret-age="60">60 Years (Standard)</button>
+              <button class="pill-btn" data-ret-age="62">62 Years</button>
+              <button class="pill-btn" data-ret-age="65">65 Years</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Executive KPI Scorecard Grid -->
+    <section class="kpi-grid">
+      <!-- Total Cadre Strength -->
+      <div class="kpi-card kpi-total">
+        <div class="kpi-header">
+          <div class="kpi-title">Total Cadre Strength</div>
+          <div class="kpi-title-en">Total Medical Officers</div>
+        </div>
+        <div class="kpi-value-row">
+          <div id="kpiTotal" class="kpi-value">508</div>
+        </div>
+        <div class="kpi-footer">Seniority S.No. 246 to 753 Total Cadre</div>
+      </div>
+
+      <!-- Past Gone Years Retired -->
+      <div class="kpi-card kpi-past">
+        <div class="kpi-header">
+          <div class="kpi-title">Past Retirements</div>
+          <div class="kpi-title-en">Retired in Past (&lt; 2026)</div>
+        </div>
+        <div class="kpi-value-row">
+          <div id="kpiPastRetired" class="kpi-value">--</div>
+        </div>
+        <div class="kpi-footer">Retired between 2019 and 2025</div>
+      </div>
+
+      <!-- Current Year 2026 Retirements -->
+      <div class="kpi-card kpi-current">
+        <div class="kpi-header">
+          <div class="kpi-title">Year 2026 Retirements</div>
+          <div class="kpi-title-en">Retiring in Current Year (2026)</div>
+        </div>
+        <div class="kpi-value-row">
+          <div id="kpiCurrentYear" class="kpi-value">--</div>
+        </div>
+        <div class="kpi-footer">Total Superannuations in 2026</div>
+      </div>
+
+      <!-- Future Coming Years Retirements -->
+      <div class="kpi-card kpi-future">
+        <div class="kpi-header">
+          <div class="kpi-title">Future Retirements</div>
+          <div class="kpi-title-en">Coming Years (&gt; 2026)</div>
+        </div>
+        <div class="kpi-value-row">
+          <div id="kpiFutureRetiring" class="kpi-value">--</div>
+        </div>
+        <div class="kpi-footer">Superannuations from 2027 to 2047+</div>
+      </div>
+
+      <!-- Currently Active Officers -->
+      <div class="kpi-card kpi-active">
+        <div class="kpi-header">
+          <div class="kpi-title">Currently in Service</div>
+          <div class="kpi-title-en">Active Duty Personnel</div>
+        </div>
+        <div class="kpi-value-row">
+          <div id="kpiCurrentlyActive" class="kpi-value">--</div>
+        </div>
+        <div class="kpi-footer">Cadre actively serving as of today</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-navigation">
+      <button class="tab-btn active" data-tab="dashboard">
+        Annual Dashboard
+      </button>
+      <button class="tab-btn" data-tab="working">
+        Currently in Service
+        <span id="badgeWorkingCount" class="tab-count-badge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="retired">
+        Retired Officers
+        <span id="badgeRetiredCount" class="tab-count-badge">0</span>
+      </button>
+      <button class="tab-btn" data-tab="master">
+        Seniority Roster
+        <span id="badgeMasterCount" class="tab-count-badge">508</span>
+      </button>
+      <button class="tab-btn" data-tab="inspector">
+        Officer Dossier
+      </button>
+    </nav>
+
+    <!-- Tab 1: Canvas Dashboard -->
+    <div id="dashboardTab" class="tab-content active">
+
+      <!-- 1. Current Year Constant Monitor -->
+      <section class="current-year-monitor">
+        <div class="current-year-header">
+          <div class="current-year-title">
+            <h3>Year 2026 — Superannuation Monitor</h3>
+            <span id="currentYearBadge" class="badge-tag">2026</span>
+          </div>
+          <div class="current-year-stats-bar">
+            <span>Total: <strong id="currentYearTotalCount" style="color:var(--primary-navy);">7</strong></span>
+            <span style="color:#64748b;">Retired Earlier This Year (Grey): <strong id="currentYearAlreadyRetiredCount">6</strong></span>
+            <span style="color:#166534;">Currently in Service (Darker): <strong id="currentYearStillWorkingCount">1</strong></span>
+          </div>
+        </div>
+
+        <div class="data-table-container">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Medical Officer Name</th>
+                  <th>Date of Birth</th>
+                  <th>Superannuation Date</th>
+                  <th>Qualification</th>
+                  <th>Recruitment Type</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="currentYearTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Dynamic Pole Graph (Bar Chart from 2019 to 2047+) -->
+      <section class="pole-graph-card">
+        <div class="pole-graph-header">
+          <div class="pole-graph-title">
+            <h3>Annual Superannuation Timeline (2019 – 2047+)</h3>
+            <p>Year-wise retirement distribution. Click on any bar/pole to view that year's list and the next year's list side-by-side below.</p>
+          </div>
+          <div style="display: flex; gap: 0.85rem; font-size: 0.76rem; font-weight: 600; flex-wrap: wrap;">
+            <span style="display:flex; align-items:center; gap:0.35rem;"><span style="width:10px; height:10px; background:#64748b; border-radius:2px;"></span> Past Years</span>
+            <span style="display:flex; align-items:center; gap:0.35rem;"><span style="width:10px; height:10px; background:#d97706; border-radius:2px;"></span> Current Year (2026)</span>
+            <span style="display:flex; align-items:center; gap:0.35rem;"><span style="width:10px; height:10px; background:#2563eb; border-radius:2px;"></span> Future Years</span>
+            <span style="display:flex; align-items:center; gap:0.35rem;"><span style="width:10px; height:10px; background:#d97706; border:1px solid #78350f; border-radius:2px;"></span> Selected Year</span>
+          </div>
+        </div>
+
+        <div id="poleChartContainer" class="pole-chart-container"></div>
+      </section>
+
+      <!-- 3. Dual Dynamic Year Lists (Selected Year & Next Year) -->
+      <section class="dual-year-grid">
+        <!-- Selected Year List -->
+        <div class="year-list-card">
+          <div class="year-list-header">
+            <div class="year-list-title">
+              <span id="selectedYearTitle">Year 2026 Superannuation List</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span id="selectedYearBadge" class="year-list-count">-- Officers</span>
+              <button id="exportSelectedYearCsvBtn" class="btn btn-outline" style="padding: 0.2rem 0.55rem; font-size: 0.75rem;" title="Download this year's list as CSV">
+                CSV Export
+              </button>
+            </div>
+          </div>
+          <div class="data-table-container" style="border: none; border-radius: 0;">
+            <div class="table-responsive" style="max-height: 460px;">
+              <table class="data-table" style="font-size: 0.84rem;">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Medical Officer Name</th>
+                    <th>Date of Birth</th>
+                    <th>Superannuation Date</th>
+                    <th>Qualification</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="selectedYearTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Next Year List -->
+        <div class="year-list-card">
+          <div class="year-list-header next-year-header">
+            <div class="year-list-title">
+              <span id="nextYearTitle">Next Year 2027 Superannuation List</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <span id="nextYearBadge" class="year-list-count">-- Officers</span>
+              <button id="exportNextYearCsvBtn" class="btn btn-outline" style="padding: 0.2rem 0.55rem; font-size: 0.75rem;" title="Download this upcoming year's list as CSV">
+                CSV Export
+              </button>
+            </div>
+          </div>
+          <div class="data-table-container" style="border: none; border-radius: 0;">
+            <div class="table-responsive" style="max-height: 460px;">
+              <table class="data-table" style="font-size: 0.84rem;">
+                <thead>
+                  <tr>
+                    <th>S.No.</th>
+                    <th>Medical Officer Name</th>
+                    <th>Date of Birth</th>
+                    <th>Superannuation Date</th>
+                    <th>Qualification</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="nextYearTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Tab 2: Currently Working Employees -->
+    <div id="workingTab" class="tab-content">
+      <div class="table-toolbar">
+        <div class="search-box">
+          <input type="text" id="workingSearch" class="search-input" placeholder="Search by name, seniority number, or father's name...">
+        </div>
+
+        <div class="filter-actions">
+          <select id="workingRecruitFilter" class="filter-select">
+            <option value="ALL">All Recruitment Types</option>
+            <option value="लोक सेवा आयोग">Public Service Commission (लोक सेवा आयोग)</option>
+            <option value="विनियमितिकरण">Regularized / Ad-hoc (विनियमितिकरण)</option>
+          </select>
+
+          <select id="workingPageSize" class="filter-select">
+            <option value="25">25 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="ALL">All Records</option>
+          </select>
+
+          <button id="exportWorkingCsvBtn" class="btn btn-outline" title="Download Active Officers List as CSV">
+            Export CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-sort="seniorityNo"><div class="th-content"><span>Seniority No.</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="name"><div class="th-content"><span>Medical Officer Name</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="dob"><div class="th-content"><span>Date of Birth</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Qualification</th>
+                <th>Recruitment Type</th>
+                <th>Appointment Date</th>
+                <th data-sort="retDate"><div class="th-content"><span>Superannuation Date</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="workingTableBody"></tbody>
+          </table>
+        </div>
+        <div id="workingPagination" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Retired Employees -->
+    <div id="retiredTab" class="tab-content">
+      <div class="table-toolbar">
+        <div class="search-box">
+          <input type="text" id="retiredSearch" class="search-input" placeholder="Search by name, seniority number, or father's name...">
+        </div>
+
+        <div class="filter-actions">
+          <select id="retiredRecruitFilter" class="filter-select">
+            <option value="ALL">All Recruitment Types</option>
+            <option value="लोक सेवा आयोग">Public Service Commission (लोक सेवा आयोग)</option>
+            <option value="विनियमितिकरण">Regularized / Ad-hoc (विनियमितिकरण)</option>
+          </select>
+
+          <select id="retiredPageSize" class="filter-select">
+            <option value="25">25 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="ALL">All Records</option>
+          </select>
+
+          <button id="exportRetiredCsvBtn" class="btn btn-outline" title="Download Retired Officers List as CSV">
+            Export CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-sort="seniorityNo"><div class="th-content"><span>Seniority No.</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="name"><div class="th-content"><span>Medical Officer Name</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="dob"><div class="th-content"><span>Date of Birth</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Qualification</th>
+                <th>Recruitment Type</th>
+                <th>Appointment Date</th>
+                <th data-sort="retDate"><div class="th-content"><span>Superannuation Date</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="retiredTableBody"></tbody>
+          </table>
+        </div>
+        <div id="retiredPagination" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Master Seniority List -->
+    <div id="masterTab" class="tab-content">
+      <div class="official-memo-banner">
+        <h2>Ayurvedic & Unani Medical Officers Cadre</h2>
+        <p>Annexure to Office Memorandum No. 2445/XL-1/2020-08/2012, dated 13 October 2021</p>
+        <p style="font-weight: 600; color: #fef08a;">Provisional Seniority List S.No. 246 to 753 (Total 508 Officers)</p>
+      </div>
+
+      <div class="table-toolbar">
+        <div class="search-box">
+          <input type="text" id="masterSearch" class="search-input" placeholder="Search entire roster by name, seniority, qualification...">
+        </div>
+
+        <div class="filter-actions">
+          <select id="masterRecruitFilter" class="filter-select">
+            <option value="ALL">All Recruitment Types</option>
+            <option value="लोक सेवा आयोग">Public Service Commission (लोक सेवा आयोग)</option>
+            <option value="विनियमितिकरण">Regularized / Ad-hoc (विनियमितिकरण)</option>
+          </select>
+
+          <select id="masterPageSize" class="filter-select">
+            <option value="25">25 per page</option>
+            <option value="50">50 per page</option>
+            <option value="100">100 per page</option>
+            <option value="ALL">All 508 Records</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="data-table-container">
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th data-sort="seniorityNo"><div class="th-content"><span>Seniority No.</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="name"><div class="th-content"><span>Medical Officer Name</span><span class="sort-arrow">⇅</span></div></th>
+                <th data-sort="dob"><div class="th-content"><span>Date of Birth</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Qualification</th>
+                <th>Recruitment Type</th>
+                <th>Appointment Date</th>
+                <th data-sort="retDate"><div class="th-content"><span>Superannuation Date</span><span class="sort-arrow">⇅</span></div></th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="masterTableBody"></tbody>
+          </table>
+        </div>
+        <div id="masterPagination" class="pagination-bar"></div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Officer Dossier / Inspector -->
+    <div id="inspectorTab" class="tab-content">
+      <div class="inspector-layout">
+        <!-- Quick list sidebar -->
+        <div class="officer-select-card">
+          <div style="font-size: 0.88rem; font-weight: 700; color: var(--primary-navy);">
+            Select Medical Officer
+          </div>
+          <input type="text" id="inspectorSearch" class="search-input" placeholder="Search by name or seniority number...">
+          <div id="inspectorOfficerList" class="officer-quick-list"></div>
+        </div>
+
+        <!-- Full Dossier -->
+        <div id="dossierContainer" class="officer-dossier-card"></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <span>Ayurvedic & Unani Medical Officers — Seniority & Superannuation Timeline</span>
+        <span class="footer-sep">|</span>
+        <span>Unofficial & Informational Portal</span>
+        <span class="footer-sep">|</span>
+        <a href="javascript:void(0)" onclick="window.openDisclaimerPopup()" class="footer-disclaimer-link">Disclaimer</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- High Priority Disclaimer Popup Modal (Overlapping everything in the middle of screen) -->
+  <div id="disclaimerPopup" class="disclaimer-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="disclaimerTitle" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 9999999; display: flex; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box;">
+    <div class="disclaimer-popup-card" style="background: #ffffff; color: #0f172a; width: 100%; max-width: 600px; border-radius: 12px; border: 1px solid #cbd5e1; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); overflow: hidden; display: flex; flex-direction: column;">
+      
+      <!-- Card Header -->
+      <div class="disclaimer-popup-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+        <div class="disclaimer-popup-title-group" style="display: flex; flex-direction: column; gap: 4px;">
+          <span class="disclaimer-badge" style="display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #b45309; background: #fef3c7; border: 1px solid #fde68a; padding: 2px 8px; border-radius: 4px; width: fit-content;">
+            Unofficial Portal
+          </span>
+          <h2 id="disclaimerTitle" class="disclaimer-popup-title" style="font-size: 1.15rem; font-weight: 700; color: #0f172a; margin: 0;">
+            Important Disclaimer
+          </h2>
+        </div>
+        <button type="button" class="disclaimer-close-icon" onclick="window.closeDisclaimerPopup()" aria-label="Close" title="Close" style="background: #ffffff; border: 1px solid #cbd5e1; font-size: 1.25rem; font-weight: 700; color: #475569; cursor: pointer; width: 36px; height: 36px; border-radius: 6px; display: flex; align-items: center; justify-content: center; line-height: 1;">
+          ✕
+        </button>
+      </div>
+
+      <!-- Card Body -->
+      <div class="disclaimer-popup-body" style="padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+        <div class="disclaimer-notice-box" style="background: #fffbeb; border: 1px solid #fde68a; border-left: 6px solid #d97706; border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+          <p class="disclaimer-main-text" style="font-size: 1rem; font-weight: 700; color: #92400e; line-height: 1.55; margin: 0;">
+            This is totally non-departmental unofficial website meant for just information. Any data is subjected to match with official sources.
+          </p>
+          <p class="disclaimer-sub-text" style="font-size: 0.9rem; color: #b45309; line-height: 1.45; font-style: italic; margin: 0; border-top: 1px dashed #fcd34d; padding-top: 8px;">
+            यह पूर्णतः गैर-विभागीय एवं अनौपचारिक वेबसाइट है, जो केवल सामान्य जानकारी हेतु है। किसी भी डेटा का आधिकारिक स्रोतों से मिलान किया जाना अनिवार्य है।
+          </p>
+        </div>
+
+        <p class="disclaimer-detail-note" style="font-size: 0.86rem; color: #64748b; line-height: 1.6; margin: 0;">
+          All information, dates of birth, seniority rankings, and superannuation calculations displayed on this portal are for unofficial reference only. For any administrative, legal, or official service purpose, verification against official records and original service books is mandatory.
+        </p>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="disclaimer-popup-footer" style="display: flex; justify-content: flex-end; padding: 12px 20px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
+        <button type="button" class="btn-disclaimer-close" onclick="window.closeDisclaimerPopup()" style="padding: 10px 22px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; background: #0f2c59; color: #ffffff; border: none; cursor: pointer;">
+          Understood / Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules Dialog Modal -->
+  <dialog id="rulesDialog" class="custom-dialog">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h3>Official Rules & Calculation Formula</h3>
+        <button class="dialog-close" onclick="document.getElementById('rulesDialog').close()">✕</button>
+      </div>
+      <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; display: flex; flex-direction: column; gap: 0.85rem;">
+        <p><strong>1. Official Reference:</strong> AYUSH & AYUSH Education Section, Office Memorandum No. 2445/XL-1/2020-08/2012, dated 13 October 2021 (Provisional Seniority List S.No. 246 to 753).</p>
+        
+        <p><strong>2. Superannuation Date Determination (Fundamental Rule 56):</strong></p>
+        <div style="padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border-left: 3px solid var(--primary-blue); font-family: monospace; font-size: 0.82rem;">
+          =IF(LEFT(DOB, 2) = "01",<br>
+          &nbsp;&nbsp;EOMONTH(DATE(Year + Superannuation_Age, Month, 1), -1),<br>
+          &nbsp;&nbsp;EOMONTH(DATE(Year + Superannuation_Age, Month, 1), 0))
+        </div>
+        <ul style="padding-left: 1.25rem; font-size: 0.85rem;">
+          <li><strong>Rule 1 (1st day of month):</strong> If date of birth falls on the 1st day of a month, the officer superannuates on the afternoon of the <em>last day of the preceding month</em> upon attaining retirement age.</li>
+          <li><strong>Rule 2 (Other dates):</strong> If date of birth falls on the 2nd day or later, the officer superannuates on the afternoon of the <em>last day of that same birth month</em> upon attaining retirement age.</li>
+        </ul>
+      </div>
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-primary" onclick="document.getElementById('rulesDialog').close()">Close</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Objection Modal -->
+  <dialog id="objectionDialog" class="custom-dialog">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h3>Report Data Discrepancy / Objection</h3>
+        <button class="dialog-close" onclick="document.getElementById('objectionDialog').close()">✕</button>
+      </div>
+      
+      <div style="padding: 0.65rem 0.85rem; background: var(--bg-secondary); border-radius: var(--radius-sm); font-size: 0.84rem; color: var(--primary-navy); font-weight: 700;" id="objectionOfficerSummary">
+        Medical Officer: --
+      </div>
+
+      <form id="objectionForm" onsubmit="event.preventDefault(); window.submitObjection();">
+        <div class="form-group">
+          <label for="objectionSender">Your Name & Designation / Contact (Optional):</label>
+          <input type="text" id="objectionSender" placeholder="e.g. Dr. ... or Phone/Email">
+        </div>
+
+        <div class="form-group">
+          <label for="objectionField">Discrepant Field:</label>
+          <select id="objectionField">
+            <option value="Date of Birth">Date of Birth</option>
+            <option value="Medical Officer Name">Medical Officer Name</option>
+            <option value="Father / Husband Name">Father / Husband Name</option>
+            <option value="Substantive Appointment Date">Substantive Appointment Date</option>
+            <option value="Professional Qualification">Professional Qualification</option>
+            <option value="Recruitment Type">Recruitment Type</option>
+            <option value="Superannuation Date Calculation">Superannuation Date Calculation</option>
+            <option value="Other Discrepancy">Other Discrepancy</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="objectionCorrectVal">Correct Information / Proposed Value *:</label>
+          <input type="text" id="objectionCorrectVal" required placeholder="Please enter the correct details here">
+        </div>
+
+        <div class="form-group">
+          <label for="objectionRemarks">Remarks / Documentary Reference:</label>
+          <textarea id="objectionRemarks" rows="2" placeholder="e.g. High School Certificate, Service Book entry, or GO No..."></textarea>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.85rem;">
+          <button type="button" class="btn btn-outline" onclick="window.copyObjectionText()">
+            Copy Details / Draft Email
+          </button>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" class="btn btn-outline" onclick="document.getElementById('objectionDialog').close()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Objection</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Admin Auth Modal -->
+  <dialog id="adminAuthDialog" class="custom-dialog">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h3>Owner / Administrator Authentication</h3>
+        <button class="dialog-close" onclick="document.getElementById('adminAuthDialog').close()">✕</button>
+      </div>
+      <p style="font-size: 0.84rem; color: var(--text-muted);">
+        Data upload, editing, and management privileges are restricted to the portal owner.
+      </p>
+      <form onsubmit="event.preventDefault(); window.checkAdminPin();">
+        <div class="form-group" style="margin-top: 0.75rem;">
+          <label for="adminPinInput">Enter Security PIN (Admin PIN):</label>
+          <input type="password" id="adminPinInput" required placeholder="Default PIN: admin123" autocomplete="current-password">
+          <span id="adminPinError" style="font-size: 0.78rem; color: #dc2626; display: none;">Incorrect PIN! Please try again.</span>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('adminAuthDialog').close()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Unlock Panel</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- Admin Panel Dialog -->
+  <dialog id="adminPanelDialog" class="custom-dialog" style="max-width: 780px;">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <div>
+          <h3>Administrator Data Management Portal</h3>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">
+            Upload Excel (.xlsx, .xls) and CSV files, review reported objections, or manage data backups.
+          </div>
+        </div>
+        <button class="dialog-close" onclick="document.getElementById('adminPanelDialog').close()">✕</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" data-admin-tab="uploadTab">File Upload (Excel/CSV)</button>
+        <button class="admin-tab-btn" data-admin-tab="objectionsTab">Received Objections (<span id="adminObjectionCount">0</span>)</button>
+        <button class="admin-tab-btn" data-admin-tab="backupTab">Data Backup & Security</button>
+      </div>
+
+      <!-- Admin Tab 1: File Upload -->
+      <div id="uploadTab" class="admin-tab-content">
+        <div class="drop-zone" id="fileDropZone" onclick="document.getElementById('sheetFileInput').click()">
+          <input type="file" id="sheetFileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+          <div class="drop-zone-text">Drag & drop Excel (.xlsx, .xls) or CSV file here, or click to browse</div>
+          <div class="drop-zone-sub">Expected Columns: Seniority No, Medical Officer Name, Father's Name, Date of Birth (DD/MM/YYYY), Qualification, Appointment Date</div>
+        </div>
+
+        <div id="uploadStatusMsg" style="margin-top: 0.75rem; font-size: 0.84rem; display: none;"></div>
+
+        <div id="uploadPreviewSection" style="display: none; margin-top: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <strong style="font-size: 0.85rem;">File Preview:</strong>
+            <span id="previewCountBadge" class="status-badge" style="background: var(--bg-secondary);">-- Records</span>
+          </div>
+          
+          <div class="upload-preview-box">
+            <table class="data-table" style="font-size: 0.78rem;">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Name</th>
+                  <th>Father's Name</th>
+                  <th>Date of Birth</th>
+                  <th>Qualification</th>
+                  <th>Appointment Date</th>
+                </tr>
+              </thead>
+              <tbody id="uploadPreviewBody"></tbody>
+            </table>
+          </div>
+
+          <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.84rem;">
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="radio" name="uploadMode" value="merge" checked>
+              <strong>Merge & Update by Seniority No</strong> — Adds new officers, updates existing records.
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+              <input type="radio" name="uploadMode" value="replace">
+              <strong style="color: #dc2626;">Replace All Records with Uploaded File</strong>
+            </label>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1rem;">
+            <button class="btn btn-outline" onclick="window.cancelUploadPreview()">Cancel</button>
+            <button class="btn btn-primary" onclick="window.applyUploadedData()">Save & Apply Data</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 2: Received Objections -->
+      <div id="objectionsTab" class="admin-tab-content" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+          <span style="font-size: 0.84rem; color: var(--text-muted);">Objections submitted by users/officers:</span>
+          <button class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" onclick="window.exportObjectionsCSV()">
+            Download Objections CSV
+          </button>
+        </div>
+        <div class="data-table-container">
+          <div class="table-responsive" style="max-height: 300px;">
+            <table class="data-table" style="font-size: 0.78rem;">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>S.No.</th>
+                  <th>Officer Name</th>
+                  <th>Discrepant Field</th>
+                  <th>Proposed Details</th>
+                  <th>Remarks</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminObjectionsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tab 3: Backup & PIN -->
+      <div id="backupTab" class="admin-tab-content" style="display: none;">
+        <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 0.85rem;">
+          <div style="padding: 0.85rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Download Updated data.js File:</strong>
+            <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0.35rem 0 0.65rem 0;">
+              If you want to permanently incorporate added names and edits into your project codebase, download this file and replace <code>medical-officers-canvas-dashboard/data.js</code>.
+            </p>
+            <button class="btn btn-primary" onclick="window.downloadUpdatedDataJs()">Download Updated data.js</button>
+          </div>
+
+          <div style="padding: 0.85rem; background: #fef2f2; border-radius: var(--radius-sm); border: 1px solid #fecaca;">
+            <strong style="color: #991b1b;">Reset to Default Factory Data (508 Records):</strong>
+            <p style="font-size: 0.78rem; color: #991b1b; margin: 0.35rem 0 0.65rem 0;">
+              This will clear all custom uploaded files and restore the original 508 medical officers roster.
+            </p>
+            <button class="btn-danger-outline" onclick="window.resetToDefaultData()">Reset to Default 508 Records</button>
+          </div>
+
+          <div style="padding: 0.85rem; background: var(--bg-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Change Administrator PIN:</strong>
+            <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.5rem;">
+              <input type="password" id="newAdminPin" placeholder="Enter new PIN" class="form-input" style="max-width: 180px;">
+              <button class="btn btn-outline" onclick="window.changeAdminPin()">Update PIN</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- Quick Officer Detail Modal -->
+  <dialog id="officerDialog" class="custom-dialog">
+    <div class="dialog-content" id="officerModalContent"></div>
+  </dialog>
+
+  <!-- Scripts: SheetJS + Authentic Data + App Engine -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="data.js?v=20261119c"></script>
+  <script src="app.js?v=20261119c"></script>
+</body>
+</html>
