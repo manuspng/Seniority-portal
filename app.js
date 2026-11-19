@@ -193,23 +193,25 @@
 
   // Initialize Event Listeners
   function initControls() {
-    els.retAgeInput.value = state.retirementAge;
+    if (els.retAgeInput) {
+      els.retAgeInput.value = state.retirementAge;
 
-    // Retirement Age Change
-    els.retAgeInput.addEventListener('change', (e) => {
-      let val = parseInt(e.target.value, 10);
-      if (isNaN(val) || val < 50) val = 60;
-      if (val > 70) val = 70;
-      state.retirementAge = val;
-      e.target.value = val;
-      render();
-    });
+      // Retirement Age Change
+      els.retAgeInput.addEventListener('change', (e) => {
+        let val = parseInt(e.target.value, 10);
+        if (isNaN(val) || val < 50) val = 60;
+        if (val > 70) val = 70;
+        state.retirementAge = val;
+        e.target.value = val;
+        render();
+      });
+    }
 
     // Preset Age Buttons
     document.querySelectorAll('[data-ret-age]').forEach(btn => {
       btn.addEventListener('click', () => {
         state.retirementAge = parseInt(btn.dataset.retAge, 10);
-        els.retAgeInput.value = state.retirementAge;
+        if (els.retAgeInput) els.retAgeInput.value = state.retirementAge;
         document.querySelectorAll('[data-ret-age]').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         render();
@@ -397,7 +399,9 @@
     els.kpiCurrentlyActive.textContent = currentlyActive.length;
 
     // Rule pill
-    els.activeRulePill.textContent = `Year: ${CURRENT_CALENDAR_YEAR} | Standard Age: ${state.retirementAge} Yrs | FR-56 Active`;
+    if (els.activeRulePill) {
+      els.activeRulePill.textContent = `Year: ${CURRENT_CALENDAR_YEAR} | Standard Age: ${state.retirementAge} Yrs | FR-56 Active`;
+    }
 
     // Tab badges
     els.badgeWorkingCount.textContent = currentlyActive.length;

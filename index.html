@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>AYUSH Medical Officers — Seniority & Superannuation Timeline</title>
-  <link rel="stylesheet" href="styles.css?v=20261119c">
+  <link rel="stylesheet" href="styles.css?v=20261119d">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,9 +15,6 @@
   <header class="gov-header">
     <div class="header-inner">
       <div class="brand-section">
-        <div class="gov-badge">
-          AYUSH Cadre Portal
-        </div>
         <div class="title-group">
           <h1>
             Ayurvedic & Unani Medical Officers — Seniority & Superannuation Portal
@@ -31,14 +28,8 @@
         <button id="rulesBtn" class="btn btn-header" title="View Official Rules & Formulas">
           Rules & References
         </button>
-        <button id="exportCsvBtn" class="btn btn-header" title="Download Complete Dataset as CSV">
-          Export Data (CSV)
-        </button>
-        <button id="adminBtn" class="btn btn-header" style="background: rgba(245, 158, 11, 0.2); border-color: #f59e0b; color: #fef08a;" title="Owner Data Management (Excel/CSV Upload)">
+        <button id="adminBtn" class="btn btn-header btn-admin" title="Owner Data Management (Excel/CSV Upload)">
           Admin Portal
-        </button>
-        <button id="printBtn" class="btn btn-header" title="Print Report / Save as PDF">
-          Print / PDF
         </button>
         <button id="themeToggleBtn" class="btn btn-header" title="Switch Theme">
           <span id="themeIcon">Theme</span>
@@ -48,33 +39,6 @@
   </header>
 
   <main class="app-container">
-
-    <!-- Simple, Informative Retirement Age Parameter Bar -->
-    <section class="control-hub-card">
-      <div class="control-hub-header">
-        <div class="control-hub-title">
-          <span>Superannuation Age Setting</span>
-          <span id="activeRulePill" class="active-rule-pill">Loading...</span>
-        </div>
-      </div>
-
-      <div class="controls-row">
-        <div class="control-item">
-          <label class="control-label" for="retAgeInput">
-            Superannuation Age (Years):
-          </label>
-          <div class="input-with-presets">
-            <input type="number" id="retAgeInput" class="form-input" min="50" max="70" value="60" style="max-width: 80px;">
-            <div class="preset-pills">
-              <button class="pill-btn" data-ret-age="58">58 Years</button>
-              <button class="pill-btn active" data-ret-age="60">60 Years (Standard)</button>
-              <button class="pill-btn" data-ret-age="62">62 Years</button>
-              <button class="pill-btn" data-ret-age="65">65 Years</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- Executive KPI Scorecard Grid -->
     <section class="kpi-grid">
@@ -756,7 +720,7 @@
 
   <!-- Scripts: SheetJS + Authentic Data + App Engine -->
   <script src="xlsx.full.min.js"></script>
-  <script src="data.js?v=20261119c"></script>
-  <script src="app.js?v=20261119c"></script>
+  <script src="data.js?v=20261119d"></script>
+  <script src="app.js?v=20261119d"></script>
 </body>
 </html>
