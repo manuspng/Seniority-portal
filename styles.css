@@ -1467,3 +1467,482 @@ dialog.custom-dialog::backdrop {
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* ==========================================================================
+   Mobile-Friendly & Touch Screen Adaptations (WCAG & Modern Web Standards)
+   ========================================================================== */
+
+/* Modern Typography Wrapping */
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+p, li {
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+/* Safe Area Insets for Notch / Bezel Edge Devices */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+html {
+  scroll-padding-top: calc(1rem + var(--sat));
+  scroll-padding-bottom: calc(2rem + var(--sab));
+}
+
+/* Touch Device Target Sizing (WCAG 2.5.5 / 2.5.8) */
+@media (pointer: coarse) {
+  :root {
+    --target-size: 44px;
+  }
+
+  .btn,
+  .btn-header,
+  .tab-btn,
+  .page-btn,
+  .pill-btn,
+  .btn-subtle,
+  .form-input,
+  .filter-select,
+  .dialog-close,
+  .disclaimer-close-icon {
+    min-block-size: var(--target-size);
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+  }
+
+  .btn-subtle {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+  }
+
+  .tab-btn {
+    padding: 0.75rem 1.1rem;
+    touch-action: manipulation;
+  }
+
+  .pill-btn {
+    padding: 0.5rem 0.85rem;
+  }
+
+  .page-btn {
+    padding: 0.45rem 0.85rem;
+  }
+}
+
+/* ==========================================================================
+   Tablet & Medium Screens (<= 992px)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .gov-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .app-container {
+    padding: 0 1rem 2.5rem 1rem;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+/* ==========================================================================
+   Mobile Phones & Small Screens (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* Header Mobile */
+  .gov-header {
+    padding: 0.85rem 1rem;
+  }
+
+  .brand-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .gov-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .title-group h1 {
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+
+  .title-group p.sub {
+    font-size: 0.78rem;
+  }
+
+  .title-group p.memo {
+    font-size: 0.72rem;
+  }
+
+  .header-actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+    width: 100%;
+  }
+
+  .header-actions .btn-header {
+    width: 100%;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.4rem;
+    text-align: center;
+  }
+
+  /* App Container */
+  .app-container {
+    margin: 0.85rem auto;
+    padding: 0 0.75rem 2rem 0.75rem;
+    gap: 1rem;
+  }
+
+  /* Parameter Bar Mobile */
+  .control-hub-card {
+    padding: 0.85rem 1rem;
+  }
+
+  .control-hub-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .control-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  .input-with-presets {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .form-input#retAgeInput {
+    max-width: 100% !important;
+    width: 100%;
+  }
+
+  .preset-pills {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+  }
+
+  .preset-pills .pill-btn {
+    text-align: center;
+  }
+
+  /* Scorecards / KPI Grid on Mobile */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+
+  .kpi-card {
+    padding: 0.85rem 0.95rem;
+  }
+
+  .kpi-title {
+    font-size: 0.76rem;
+  }
+
+  .kpi-title-en {
+    font-size: 0.66rem;
+  }
+
+  .kpi-value {
+    font-size: 1.65rem;
+  }
+
+  .kpi-footer {
+    font-size: 0.68rem;
+    padding-top: 0.3rem;
+  }
+
+  /* Tabs Navigation - Smooth Mobile Horizontal Swipe */
+  .tabs-navigation {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0.25rem 0;
+    gap: 0.2rem;
+    border-bottom: 2px solid var(--border-subtle);
+  }
+
+  .tabs-navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    flex: 0 0 auto;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.82rem;
+  }
+
+  /* Current Year Monitor Mobile */
+  .current-year-monitor {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  .current-year-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .current-year-stats-bar {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Dynamic Pole Graph Mobile */
+  .pole-graph-card {
+    padding: 1rem;
+  }
+
+  .pole-chart-container {
+    height: 250px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Dual Dynamic Year Grid Mobile */
+  .dual-year-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .year-list-header {
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+  }
+
+  .year-list-header > div:last-child {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Data Tables Mobile Optimization */
+  .table-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.75rem 1rem;
+    gap: 0.65rem;
+  }
+
+  .search-box {
+    min-width: 100%;
+    max-width: 100%;
+  }
+
+  .filter-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+  }
+
+  .filter-actions .filter-select {
+    width: 100%;
+  }
+
+  .filter-actions button {
+    grid-column: span 2;
+    width: 100%;
+  }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .data-table {
+    min-width: 680px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 0.65rem 0.6rem;
+  }
+
+  /* Pagination Mobile */
+  .pagination-bar {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+
+  .pagination-controls {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  /* Modals on Mobile */
+  .disclaimer-popup-card {
+    width: 95% !important;
+    max-height: 88vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+  }
+
+  .disclaimer-popup-header {
+    padding: 12px 16px;
+  }
+
+  .disclaimer-popup-title {
+    font-size: 1.05rem;
+  }
+
+  .disclaimer-popup-body {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .disclaimer-notice-box {
+    padding: 12px 14px;
+  }
+
+  .disclaimer-main-text {
+    font-size: 0.92rem;
+  }
+
+  .disclaimer-sub-text {
+    font-size: 0.84rem;
+  }
+
+  .disclaimer-popup-footer {
+    padding: 10px 16px;
+  }
+
+  .btn-disclaimer-close {
+    width: 100%;
+    padding: 10px 16px;
+    text-align: center;
+  }
+
+  dialog.custom-dialog {
+    width: 95% !important;
+    max-width: 95vw !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    margin: auto !important;
+    border-radius: 10px;
+  }
+
+  .dialog-content {
+    padding: 1rem;
+  }
+
+  .admin-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-tab-btn {
+    flex: 0 0 auto;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .drop-zone {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .drop-zone-text {
+    font-size: 0.85rem;
+  }
+
+  /* Officer Inspector on Mobile */
+  .inspector-layout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .officer-select-card {
+    max-height: 240px;
+  }
+
+  .dossier-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+  }
+
+  .dossier-field[style*="grid-column: span 2"] {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ==========================================================================
+   Extra Small Devices (<= 480px, e.g. iPhone SE, small Androids)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .title-group h1 {
+    font-size: 1.05rem;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions button {
+    grid-column: span 1;
+  }
+}
